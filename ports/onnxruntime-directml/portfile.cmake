@@ -40,7 +40,8 @@ endif()
 
 file(INSTALL "${SOURCE_PATH}/build/native/include/" DESTINATION "${CURRENT_PACKAGES_DIR}/include")
 
-file(INSTALL "${SOURCE_PATH}/LICENSE.txt"
+file(INSTALL "${SOURCE_PATH}/LICENSE"
+             "${SOURCE_PATH}/Privacy.md"
              "${SOURCE_PATH}/README.md"
              "${SOURCE_PATH}/ThirdPartyNotices.txt"
      DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}"
