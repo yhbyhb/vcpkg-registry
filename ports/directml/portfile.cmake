@@ -5,17 +5,16 @@ set(ENV{NUGET_PACKAGES} "${BUILDTREES_DIR}/nuget")
 
 # see https://www.nuget.org/packages/Microsoft.AI.DirectML/
 set(PACKAGE_NAME    "Microsoft.AI.DirectML")
-set(PACKAGE_VERSION "1.13.1")
 
 file(REMOVE_RECURSE "${CURRENT_BUILDTREES_DIR}/${PACKAGE_NAME}")
 vcpkg_execute_required_process(
-    COMMAND ${NUGET} install "${PACKAGE_NAME}" -Version "${PACKAGE_VERSION}" -Verbosity detailed
+    COMMAND ${NUGET} install "${PACKAGE_NAME}" -Version "${VERSION}" -Verbosity detailed
                 -OutputDirectory "${CURRENT_BUILDTREES_DIR}"
     WORKING_DIRECTORY "${CURRENT_BUILDTREES_DIR}"
     LOGNAME install-nuget
 )
 
-get_filename_component(SOURCE_PATH "${CURRENT_BUILDTREES_DIR}/${PACKAGE_NAME}.${PACKAGE_VERSION}" ABSOLUTE)
+get_filename_component(SOURCE_PATH "${CURRENT_BUILDTREES_DIR}/${PACKAGE_NAME}.${VERSION}" ABSOLUTE)
 if(VCPKG_TARGET_IS_WINDOWS)
     if(VCPKG_TARGET_ARCHITECTURE STREQUAL "x64")
         set(TRIPLE "x64-win")
@@ -48,8 +47,8 @@ if(VCPKG_TARGET_IS_WINDOWS)
     file(INSTALL "${SOURCE_PATH}/bin/${TRIPLE}/DirectML.lib"        DESTINATION "${CURRENT_PACKAGES_DIR}/lib")
     file(INSTALL "${SOURCE_PATH}/bin/${TRIPLE}/DirectML.dll"        DESTINATION "${CURRENT_PACKAGES_DIR}/bin")
     file(INSTALL "${SOURCE_PATH}/bin/${TRIPLE}/DirectML.pdb"        DESTINATION "${CURRENT_PACKAGES_DIR}/bin")
-    file(INSTALL "${SOURCE_PATH}/bin/${TRIPLE}/DirectML.Debug.dll"  DESTINATION "${CURRENT_PACKAGES_DIR}/bin")
-    file(INSTALL "${SOURCE_PATH}/bin/${TRIPLE}/DirectML.Debug.pdb"  DESTINATION "${CURRENT_PACKAGES_DIR}/bin")
+    file(INSTALL "${SOURCE_PATH}/bin/${TRIPLE}/DirectML.Debug.dll"  DESTINATION "${CURRENT_PACKAGES_DIR}/debug/bin")
+    file(INSTALL "${SOURCE_PATH}/bin/${TRIPLE}/DirectML.Debug.pdb"  DESTINATION "${CURRENT_PACKAGES_DIR}/debug/bin")
 elseif(VCPKG_TARGET_IS_LINUX)
     file(INSTALL "${SOURCE_PATH}/bin/${TRIPLE}/libdirectml.so"  DESTINATION "${CURRENT_PACKAGES_DIR}/lib")
 else()
@@ -57,7 +56,6 @@ else()
 endif()
 
 file(INSTALL "${SOURCE_PATH}/include/" DESTINATION "${CURRENT_PACKAGES_DIR}/include")
-file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug")
 
 file(INSTALL "${SOURCE_PATH}/LICENSE-CODE.txt"
              "${SOURCE_PATH}/README.md"
