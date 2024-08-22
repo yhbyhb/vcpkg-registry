@@ -45,4 +45,4 @@ file(INSTALL "${SOURCE_PATH}/LICENSE.txt"
              "${SOURCE_PATH}/ThirdPartyNotices.txt"
      DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}"
 )
-vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE.txt")
+vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
