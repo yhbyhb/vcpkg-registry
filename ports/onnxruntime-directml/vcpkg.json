@@ -1,6 +1,7 @@
 {
   "name": "onnxruntime-directml",
   "version": "1.17.3",
+  "port-version": 1,
   "description": [
     "The DirectML Execution Provider is a component of ONNX Runtime that uses DirectML to accelerate inference of ONNX models.",
     "The DirectML execution provider is capable of greatly improving evaluation time of models using commodity GPU hardware, ",
@@ -8,5 +9,8 @@
   ],
   "homepage": "https://github.com/microsoft/onnxruntime",
   "license": "MIT",
-  "supports": "windows & !uwp & !static"
+  "supports": "windows & !uwp & !static",
+  "dependencies": [
+    "directml"
+  ]
 }
